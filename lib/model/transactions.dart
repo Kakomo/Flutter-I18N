@@ -1,9 +1,11 @@
+import 'package:uuid/uuid.dart';
+
 import 'contact.dart';
 
 class Transaction {
   final double value;
   final Contact contact;
-  final String id;
+  final String id ;
 
   Transaction(
       this.id,
