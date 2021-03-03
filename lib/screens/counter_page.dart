@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+// this is just an example, we are not using this
 class CounterCubit extends Cubit<int> {
   CounterCubit() : super(0);
 

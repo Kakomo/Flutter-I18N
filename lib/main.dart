@@ -1,5 +1,6 @@
 import 'package:bytebank/screens/counter_page.dart';
 import 'package:bytebank/screens/dashboard.dart';
+import 'package:bytebank/screens/name.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
@@ -17,7 +18,7 @@ class ByteBank extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: bytebankTheme,
-      home: CounterContainer()
+      home: NameContainer()
     );
   }
 }
