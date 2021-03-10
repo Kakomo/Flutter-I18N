@@ -41,9 +41,8 @@ class NameView extends StatelessWidget {
               child: RaisedButton(
                 child: Text("Change"),
                 onPressed: (){
-                  final name = _nameController.text;
+                  final name= _nameController.text;
                   context.read<NameCubit>().change(name);
-                  Navigator.pop(context);
                 },
               ),
             ),

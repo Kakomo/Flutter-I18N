@@ -1,8 +1,21 @@
 import 'package:bytebank/screens/contacts_list.dart';
+import 'package:bytebank/screens/name.dart';
 import 'package:bytebank/screens/transactions_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Dashboard extends StatelessWidget {
+class DashboardContainer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => NameCubit("Eragon"),
+      child: DashboardView(),
+    );
+  }
+}
+
+
+class DashboardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +49,13 @@ class Dashboard extends StatelessWidget {
                     _showTransactionsList(context);
                   },
                 ),
+                _FeatureItem(
+                  'Change Name',
+                  Icons.person_outline,
+                  onClick: () {
+                    _showNameScreen(context);
+                  },
+                ),
               ],
             ),
           ),
@@ -53,6 +73,11 @@ class Dashboard extends StatelessWidget {
 void _showContactsList(BuildContext context){
   Navigator.of(context).push(MaterialPageRoute(
     builder: (context) => ContactsList(),
+  ));
+}
+void _showNameScreen(BuildContext contextBloc){
+  Navigator.of(contextBloc).push(MaterialPageRoute(
+    builder: (context) => NameContainer(),
   ));
 }
 
