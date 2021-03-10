@@ -10,10 +10,7 @@ class NameCubit extends Cubit<String> {
 class NameContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => NameCubit("Eragon"),
-      child: NameView(),
-    );
+    return NameView();
   }
 }
 
@@ -41,7 +38,7 @@ class NameView extends StatelessWidget {
               child: RaisedButton(
                 child: Text("Change"),
                 onPressed: (){
-                  final name= _nameController.text;
+                  final name = _nameController.text;
                   context.read<NameCubit>().change(name);
                 },
               ),

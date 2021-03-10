@@ -8,7 +8,7 @@ class DashboardContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => NameCubit("Eragon"),
+      create: (_) => NameCubit("Kako"),
       child: DashboardView(),
     );
   }
@@ -20,7 +20,9 @@ class DashboardView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Dashboard"),
+        title: BlocBuilder<NameCubit, String>(
+          builder: (context, state) => Text("Welcome $state"),
+        ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -53,7 +55,7 @@ class DashboardView extends StatelessWidget {
                   'Change Name',
                   Icons.person_outline,
                   onClick: () {
-                    _showNameScreen(context);
+                    _showChangeName(context);
                   },
                 ),
               ],
@@ -75,9 +77,12 @@ void _showContactsList(BuildContext context){
     builder: (context) => ContactsList(),
   ));
 }
-void _showNameScreen(BuildContext contextBloc){
+void _showChangeName(BuildContext contextBloc){
   Navigator.of(contextBloc).push(MaterialPageRoute(
-    builder: (context) => NameContainer(),
+    builder: (context) => BlocProvider.value(
+      value: BlocProvider.of<NameCubit>(contextBloc),
+      child: NameContainer(),
+    ),
   ));
 }
 
