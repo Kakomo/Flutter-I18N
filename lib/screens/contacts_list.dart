@@ -4,56 +4,93 @@ import 'package:bytebank/model/contact.dart';
 import 'package:bytebank/screens/contact_form.dart';
 import 'package:bytebank/screens/transaction_form.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ContactsList extends StatelessWidget {
-  final ContactDao _dao = ContactDao();
+abstract class ContactsListState {
+  const ContactsListState();
+}
+
+class InitContactsListState extends ContactsListState {
+  const InitContactsListState();
+}
+
+class LoadingContactsListState extends ContactsListState {
+  const LoadingContactsListState();
+}
+
+class LoadedContactsListState extends ContactsListState {
+  final List<Contact> _contacts;
+
+  const LoadedContactsListState(this._contacts);
+}
+
+class FatalErrorContactsListState extends ContactsListState {
+  const FatalErrorContactsListState();
+}
+
+class ContactsListCubit extends Cubit<ContactsListState> {
+  ContactsListCubit() : super(InitContactsListState());
+
+  void reload(ContactDao dao) async {
+    emit(LoadingContactsListState());
+    dao.findAll().then((contacts) => emit(LoadedContactsListState(contacts)));
+  }
+}
+
+class ContactsListContainer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final ContactDao dao = ContactDao();
+    return BlocProvider<ContactsListCubit>(
+      create: (_) {
+        final cubit = ContactsListCubit();
+        cubit.reload(dao);
+        return cubit;
+      },
+      child: ContactsListView(),
+    );
+  }
+}
+
+class ContactsListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Transfer'),
       ),
-      body: FutureBuilder<List<Contact>>(
-        initialData: List(),
-        future: _dao.findAll(),
-        builder: (context, snapshot){
-          switch(snapshot.connectionState) {
-            case ConnectionState.none:
-              break;
-            case ConnectionState.waiting:
-              return Progress();
-              break;
-            case ConnectionState.active:
-              break;
-            case ConnectionState.done:
-              final List<Contact> contacts = snapshot.data;
-              return ListView.builder(
-                itemBuilder: (context,index){
-                  final Contact contact = contacts[index];
-                  return _ContactItem(contact, onClick: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=> TransactionForm(contact)));
-                  },);
-                },
-                itemCount: contacts.length,
-              );
-              break;
+      body: BlocBuilder<ContactsListCubit, ContactsListState>(
+        builder: (context, state) {
+          if (state is InitContactsListState ||
+              state is LoadingContactsListState) {
+            return Progress();
           }
-          return Text('Unkown error');
-
-
-
-
+          if (state is LoadedContactsListState) {
+            final contacts = state._contacts;
+            return ListView.builder(
+              itemBuilder: (context, index) {
+                final Contact contact = contacts[index];
+                return _ContactItem(
+                  contact,
+                  onClick: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => TransactionForm(contact)));
+                  },
+                );
+              },
+              itemCount: contacts.length,
+            );
+          }
+          return Text('Unknown error');
         },
       ),
-
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context)
-              .push(
-                MaterialPageRoute(
-                  builder: (context) => ContactsForm(),
-                ),
-              );
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => ContactsForm(),
+            ),
+          );
         },
         child: Icon(Icons.add),
       ),
@@ -64,7 +101,9 @@ class ContactsList extends StatelessWidget {
 class _ContactItem extends StatelessWidget {
   final Contact contact;
   final Function onClick;
+
   _ContactItem(this.contact, {@required this.onClick});
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -82,4 +121,3 @@ class _ContactItem extends StatelessWidget {
     );
   }
 }
-
