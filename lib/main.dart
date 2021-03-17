@@ -28,7 +28,7 @@ class ByteBank extends StatelessWidget {
     Bloc.observer = LogObserver();
     return MaterialApp(
       theme: bytebankTheme,
-      home: DashboardView()
+      home: DashboardContainer()
     );
   }
 }
