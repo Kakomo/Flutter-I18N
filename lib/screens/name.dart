@@ -40,6 +40,7 @@ class NameView extends StatelessWidget {
                 onPressed: (){
                   final name = _nameController.text;
                   context.read<NameCubit>().change(name);
+                  Navigator.pop(context);
                 },
               ),
             ),

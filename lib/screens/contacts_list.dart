@@ -47,12 +47,14 @@ class ContactsListContainer extends StatelessWidget {
         cubit.reload(dao);
         return cubit;
       },
-      child: ContactsListView(),
+      child: ContactsListView(dao),
     );
   }
 }
 
 class ContactsListView extends StatelessWidget {
+  final ContactDao _dao;
+  ContactsListView(this._dao);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +76,7 @@ class ContactsListView extends StatelessWidget {
                   contact,
                   onClick: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => TransactionForm(contact)));
+                        builder: (context) => TransactionFormView(contact)));
                   },
                 );
               },
@@ -85,12 +87,13 @@ class ContactsListView extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(
+        onPressed: () async {
+          await Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => ContactsForm(),
             ),
           );
+          context.read<ContactsListCubit>().reload(_dao);
         },
         child: Icon(Icons.add),
       ),

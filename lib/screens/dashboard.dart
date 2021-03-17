@@ -74,7 +74,7 @@ class DashboardView extends StatelessWidget {
 }
 void _showContactsList(BuildContext context){
   Navigator.of(context).push(MaterialPageRoute(
-    builder: (context) => ContactsListView(),
+    builder: (context) => ContactsListContainer(),
   ));
 }
 void _showChangeName(BuildContext contextBloc){

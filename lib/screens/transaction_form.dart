@@ -8,18 +8,58 @@ import 'package:bytebank/http/webclients/transactions_webclient.dart';
 import 'package:bytebank/model/contact.dart';
 import 'package:bytebank/model/transactions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uuid/uuid.dart';
 
-class TransactionForm extends StatefulWidget {
-  final Contact contact;
-
-  TransactionForm(this.contact);
-
-  @override
-  _TransactionFormState createState() => _TransactionFormState();
+abstract class TransactionFormState {
+  const TransactionFormState();
 }
 
-class _TransactionFormState extends State<TransactionForm> {
+class InitTransactionFormState extends TransactionFormState {
+  const InitTransactionFormState();
+}
+
+class LoadingTransactionFormState extends TransactionFormState {
+  const LoadingTransactionFormState();
+}
+
+class LoadedTransactionFormState extends TransactionFormState {
+  const LoadedTransactionFormState();
+}
+
+class FatalErrorTransactionFormState extends TransactionFormState {
+  const FatalErrorTransactionFormState();
+}
+
+class TransactionFormCubit extends Cubit<TransactionFormState>{
+  TransactionFormCubit() : super(InitTransactionFormState());
+
+}
+
+class TransactionFormContainer extends StatelessWidget {
+  final Contact _contact;
+  TransactionFormContainer(this._contact);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<TransactionFormCubit>(
+      create: (_) => TransactionFormCubit(),
+      child: TransactionFormView(_contact),
+    );
+  }
+}
+
+
+class TransactionFormView extends StatefulWidget {
+  final Contact contact;
+
+  TransactionFormView(this.contact);
+
+  @override
+  _TransactionFormViewState createState() => _TransactionFormViewState();
+}
+
+class _TransactionFormViewState extends State<TransactionFormView> {
   final TextEditingController _valueController = TextEditingController();
   final TransactionsWebClient _webClient = TransactionsWebClient();
   final String transactionId = Uuid().v4();
