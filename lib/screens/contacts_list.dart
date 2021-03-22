@@ -76,7 +76,7 @@ class ContactsListView extends StatelessWidget {
                   contact,
                   onClick: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => TransactionFormView(contact)));
+                        builder: (context) => TransactionFormContainer(contact)));
                   },
                 );
               },
