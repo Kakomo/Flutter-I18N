@@ -1,3 +1,4 @@
+import 'package:bytebank/components/localization.dart';
 import 'package:bytebank/screens/contacts_list.dart';
 import 'package:bytebank/screens/name.dart';
 import 'package:bytebank/screens/transactions_list.dart';
@@ -18,6 +19,7 @@ class DashboardContainer extends StatelessWidget {
 class DashboardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final i18n = DashboardViewi18N(context);
     return Scaffold(
       appBar: AppBar(
         title: BlocBuilder<NameCubit, String>(
@@ -38,21 +40,21 @@ class DashboardView extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               children: [
                 _FeatureItem(
-                  'Transfer',
+                  i18n.transfer(),
                   Icons.monetization_on,
                   onClick: () {
                     _showContactsList(context);
                   },
                 ),
                 _FeatureItem(
-                  'Transaction Feed',
+                  i18n.transactionFeed(),
                   Icons.description,
                   onClick: () {
                     _showTransactionsList(context);
                   },
                 ),
                 _FeatureItem(
-                  'Change Name',
+                  i18n.changeName(),
                   Icons.person_outline,
                   onClick: () {
                     _showChangeName(context);

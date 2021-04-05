@@ -1,3 +1,4 @@
+import 'package:bytebank/components/localization.dart';
 import 'package:bytebank/screens/counter_page.dart';
 import 'package:bytebank/screens/dashboard.dart';
 import 'package:bytebank/screens/name.dart';
@@ -28,7 +29,9 @@ class ByteBank extends StatelessWidget {
     Bloc.observer = LogObserver();
     return MaterialApp(
       theme: bytebankTheme,
-      home: DashboardContainer()
+      home: LocalizationContainer(
+        child: DashboardContainer(),
+      )
     );
   }
 }
