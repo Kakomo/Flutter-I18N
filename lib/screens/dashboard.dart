@@ -12,7 +12,7 @@ class DashboardContainer extends StatelessWidget {
     return BlocProvider(
       create: (_) => NameCubit("Kako"),
       child: I18NLoadingContainer(
-          (messages) => DashboardView(messages);
+          (messages) => DashboardView(messages)
       ),
     );
   }
@@ -20,6 +20,10 @@ class DashboardContainer extends StatelessWidget {
 
 
 class DashboardView extends StatelessWidget {
+  final I18NMessages _messages;
+  
+  DashboardView(this._messages);
+
   @override
   Widget build(BuildContext context) {
     final i18n = DashboardViewi18N(context);
@@ -43,21 +47,21 @@ class DashboardView extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               children: [
                 _FeatureItem(
-                  i18n.transfer(),
+                  _messages.get("transfer"),
                   Icons.monetization_on,
                   onClick: () {
                     _showContactsList(context);
                   },
                 ),
                 _FeatureItem(
-                  i18n.transactionFeed(),
+                  _messages.get("transaction_feed"),
                   Icons.description,
                   onClick: () {
                     _showTransactionsList(context);
                   },
                 ),
                 _FeatureItem(
-                  i18n.changeName(),
+                  _messages.get("change_name"),
                   Icons.person_outline,
                   onClick: () {
                     _showChangeName(context);

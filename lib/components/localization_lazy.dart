@@ -25,6 +25,8 @@ class FatalErrorI18NMessagesState extends I18NMessagesState {
   const FatalErrorI18NMessagesState();
 }
 
+typedef Widget I18NWidgetCreator(I18NMessages messages);
+
 class I18NMessages{
   final Map<String, String> _messages;
   I18NMessages(this._messages);
@@ -42,11 +44,18 @@ class I18NMessagesCubit extends Cubit<I18NMessagesState>{
   reload(){
     emit(LoadingI18NMessagesState());
     //TODO
-    emit(LoadedI18NMessagesState(I18NMessages({"key":"value"})));
+    emit(LoadedI18NMessagesState(I18NMessages({
+      "transfer" : "TRANSFER",
+      "transaction_feed" : "TRANSACTION FEED",
+      "change_name" : "CHANGE NAME",
+    })));
   }
 }
 
 class I18NLoadingContainer extends StatelessWidget {
+  final I18NWidgetCreator _creator;
+  I18NLoadingContainer(this._creator);
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(create: (context){
@@ -54,13 +63,15 @@ class I18NLoadingContainer extends StatelessWidget {
       cubit.reload();
       return cubit;
     },
-    child: I18NLoadingView(),
+    child: I18NLoadingView(this._creator),
     );
   }
 }
 
 
 class I18NLoadingView extends StatelessWidget {
+  final I18NWidgetCreator _creator;
+  I18NLoadingView(this._creator);
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<I18NMessagesCubit, I18NMessagesState>(builder: (context,state){
@@ -69,7 +80,7 @@ class I18NLoadingView extends StatelessWidget {
       }
       if(state is LoadedI18NMessagesState){
         final messages = state._messages;
-        return View;
+        return _creator.call(messages);
       }
       return Text('Error');
     });
