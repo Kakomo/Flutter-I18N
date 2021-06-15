@@ -1,4 +1,5 @@
 import 'package:bytebank/components/progress.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +16,7 @@ class LoadingI18NMessagesState extends I18NMessagesState {
 }
 
 class LoadedI18NMessagesState extends I18NMessagesState {
-  final List<I18NMessages> _messages;
+  final I18NMessages _messages;
 
   const LoadedI18NMessagesState(this._messages);
 }
@@ -35,6 +36,30 @@ class I18NMessages{
   }
 }
 
+class I18NMessagesCubit extends Cubit<I18NMessagesState>{
+  I18NMessagesCubit() : super(InitI18NMessagesState());
+
+  reload(){
+    emit(LoadingI18NMessagesState());
+    //TODO
+    emit(LoadedI18NMessagesState(I18NMessages({"key":"value"})));
+  }
+}
+
+class I18NLoadingContainer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(create: (context){
+      final cubit = I18NMessagesCubit();
+      cubit.reload();
+      return cubit;
+    },
+    child: I18NLoadingView(),
+    );
+  }
+}
+
+
 class I18NLoadingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -43,6 +68,7 @@ class I18NLoadingView extends StatelessWidget {
         return Progress();
       }
       if(state is LoadedI18NMessagesState){
+        final messages = state._messages;
         return View;
       }
       return Text('Error');

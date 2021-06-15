@@ -1,4 +1,5 @@
 import 'package:bytebank/components/localization.dart';
+import 'package:bytebank/components/localization_lazy.dart';
 import 'package:bytebank/screens/contacts_list.dart';
 import 'package:bytebank/screens/name.dart';
 import 'package:bytebank/screens/transactions_list.dart';
@@ -10,7 +11,9 @@ class DashboardContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => NameCubit("Kako"),
-      child: DashboardView(),
+      child: I18NLoadingContainer(
+          (messages) => DashboardView(messages);
+      ),
     );
   }
 }
