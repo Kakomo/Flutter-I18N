@@ -1,6 +1,7 @@
 import 'package:bytebank/components/localization.dart';
 import 'package:bytebank/screens/counter_page.dart';
 import 'package:bytebank/screens/dashboard.dart';
+import 'package:bytebank/screens/language_screen.dart';
 import 'package:bytebank/screens/name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,9 +30,8 @@ class ByteBank extends StatelessWidget {
     Bloc.observer = LogObserver();
     return MaterialApp(
       theme: bytebankTheme,
-      home: LocalizationContainer(
-        child: DashboardContainer(),
-      )
+      home: LanguageScreen()
+
     );
   }
 }

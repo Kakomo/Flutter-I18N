@@ -42,25 +42,27 @@ class I18NMessages {
 }
 
 class I18NMessagesCubit extends Cubit<I18NMessagesState> {
-  final LocalStorage storage = new LocalStorage('language_en.json');
+  final LocalStorage storage = new LocalStorage('language.json');
+  final String language;
 
-  I18NMessagesCubit() : super(InitI18NMessagesState());
+  I18NMessagesCubit(this.language) : super(InitI18NMessagesState());
 
   reload(I18NWebClient client) async {
     emit(LoadingI18NMessagesState());
     await storage.ready;
-    final items = storage.getItem('key');
+    final items = storage.getItem(language);
     print('Loaded $items');
     if (items != null) {
       emit(
         LoadedI18NMessagesState(I18NMessages(items)),
       );
+      return language;
     }
     client.findAll().then(saveAndRefresh);
   }
 
   saveAndRefresh(Map<String, dynamic> messages) {
-    storage.setItem('key', messages);
+    storage.setItem(language, messages);
     print('Saving: $messages');
     emit(LoadedI18NMessagesState(I18NMessages(messages)));
   }
@@ -68,15 +70,16 @@ class I18NMessagesCubit extends Cubit<I18NMessagesState> {
 
 class I18NLoadingContainer extends StatelessWidget {
   final I18NWidgetCreator _creator;
+  final String _language;
 
-  I18NLoadingContainer(this._creator);
+  I18NLoadingContainer(this._creator, this._language);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        final cubit = I18NMessagesCubit();
-        cubit.reload(I18NWebClient());
+        final cubit = I18NMessagesCubit(_language);
+        cubit.reload(I18NWebClient(_language));
         return cubit;
       },
       child: I18NLoadingView(this._creator),

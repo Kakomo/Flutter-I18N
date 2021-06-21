@@ -7,12 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DashboardContainer extends StatelessWidget {
+  final String language;
+
+  DashboardContainer(this.language);
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => NameCubit("Kako"),
       child: I18NLoadingContainer(
-          (messages) => DashboardView(messages)
+          (messages) => DashboardView(messages), language
       ),
     );
   }
