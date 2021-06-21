@@ -3,6 +3,7 @@ import 'package:bytebank/http/webclients/i18n_webclient.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:localstorage/localstorage.dart';
 
 abstract class I18NMessagesState {
   const I18NMessagesState();
@@ -41,13 +42,27 @@ class I18NMessages {
 }
 
 class I18NMessagesCubit extends Cubit<I18NMessagesState> {
+  final LocalStorage storage = new LocalStorage('language_en.json');
+
   I18NMessagesCubit() : super(InitI18NMessagesState());
 
-  reload(I18NWebClient client) {
+  reload(I18NWebClient client) async {
     emit(LoadingI18NMessagesState());
-    client.findAll().then((messages) => emit(
-          LoadedI18NMessagesState(I18NMessages(messages)),
-        ));
+    await storage.ready;
+    final items = storage.getItem('key');
+    print('Loaded $items');
+    if (items != null) {
+      emit(
+        LoadedI18NMessagesState(I18NMessages(items)),
+      );
+    }
+    client.findAll().then(saveAndRefresh);
+  }
+
+  saveAndRefresh(Map<String, dynamic> messages) {
+    storage.setItem('key', messages);
+    print('Saving: $messages');
+    emit(LoadedI18NMessagesState(I18NMessages(messages)));
   }
 }
 
@@ -79,7 +94,10 @@ class I18NLoadingView extends StatelessWidget {
     return BlocBuilder<I18NMessagesCubit, I18NMessagesState>(
         builder: (context, state) {
       if (state is InitI18NMessagesState || state is LoadingI18NMessagesState) {
-        return Progress();
+        return Scaffold(
+          appBar: AppBar(),
+          body: Center(child: Progress()),
+        );
       }
       if (state is LoadedI18NMessagesState) {
         final messages = state._messages;
