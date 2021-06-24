@@ -1,34 +1,38 @@
 ![Thumbnail GitHub](https://raw.githubusercontent.com/Kakomo/Flutter-I18N/master/Flutter%20-%20i18N.png)
 
-# Nome do projeto
+# Bytebank
 
-Descreva o que é o projeto e o que ele faz
+The Bytebank App is the simulation of a bank application, you are able to create contacts, transfer money, look at old transactions, change the user name, using http communication and persistence.
 
-## 🔨 Funcionalidades do projeto
+## 🔨 Project Features
 
-Indique quais são as funcionalidades e comportamentos do App
+The App translates some selected messages to any language you create, using Persistence and HTTP Communication to create integration with different languages.
 
-Se possível, apresente um exemplo visual do projeto, seja gif, imagens ou vídeo, abaixo segue um exemplo:
+![](https://raw.githubusercontent.com/Kakomo/Flutter-I18N/master/i18nGif.gif)
 
-![](https://github.com/alura-cursos/android-com-kotlin-personalizando-ui/raw/master/img/amostra.gif)
+## ✔️ Techniques and Technologies
 
-## ✔️ Técnicas e tecnologias utilizadas
-
-**Faça uma lista de tecnologias e técnicas utilizadas (a justificativa e descrição são opcionais)**:
+**Take a closer look at what you will use**:
 
 - `Funcionalidade 1`: descrição da funcionalidade 1
 - `Funcionalidade 2`: descrição da funcionalidade 2
   - `Funcionalidade 2a`: descrição da funcionalidade 2a relacionada à funcionalidade 2
 - `Funcionalidade 3`: descrição da funcionalidade 3
 
-## 📁 Acesso ao projeto
+## 📁 Initial Project
 
-**Indique como é possível baixar ou acessar o código fonte do projeto, seja projeto inicial ou final**
+You can access the [initial project here](https://github.com/Kakomo/Flutter-I18N) or [download it](https://github.com/Kakomo/Flutter-I18N/archive/refs/heads/master.zip)
 
-## 🛠️ Abrir e rodar o projeto
+## 🛠️ Instructions 
 
-**Apresente as instruções necessárias para abrir e executar o projeto**
+After downloading the project, you can open it with Android Studio. To do this, on the launcher screen click on:
 
-## 📚 Mais informações do curso
+- **Open an Existing Project** (or similar option)
+- Browse the location where the project is and select it (If the project is downloaded via zip, it is necessary to extract it before searching for it)
+- Finally click OK
 
-**Faça um CTA para o curso do projeto**
+Android Studio must perform some Gradle tasks to configure the project, wait until it finishes. When finishing the tasks, you can run the App
+
+## 📚 Other Informations
+
+
