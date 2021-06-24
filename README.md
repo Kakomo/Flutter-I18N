@@ -1,16 +1,34 @@
-# bytebank
+![Thumbnail GitHub](https://raw.githubusercontent.com/Kakomo/Flutter-I18N/master/Flutter%20-%20i18N.png)
 
-My first bytebank app
+# Nome do projeto
 
-## Getting Started
+Descreva o que é o projeto e o que ele faz
 
-This project is a starting point for a Flutter application.
+## 🔨 Funcionalidades do projeto
 
-A few resources to get you started if this is your first Flutter project:
+Indique quais são as funcionalidades e comportamentos do App
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Se possível, apresente um exemplo visual do projeto, seja gif, imagens ou vídeo, abaixo segue um exemplo:
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![](https://github.com/alura-cursos/android-com-kotlin-personalizando-ui/raw/master/img/amostra.gif)
+
+## ✔️ Técnicas e tecnologias utilizadas
+
+**Faça uma lista de tecnologias e técnicas utilizadas (a justificativa e descrição são opcionais)**:
+
+- `Funcionalidade 1`: descrição da funcionalidade 1
+- `Funcionalidade 2`: descrição da funcionalidade 2
+  - `Funcionalidade 2a`: descrição da funcionalidade 2a relacionada à funcionalidade 2
+- `Funcionalidade 3`: descrição da funcionalidade 3
+
+## 📁 Acesso ao projeto
+
+**Indique como é possível baixar ou acessar o código fonte do projeto, seja projeto inicial ou final**
+
+## 🛠️ Abrir e rodar o projeto
+
+**Apresente as instruções necessárias para abrir e executar o projeto**
+
+## 📚 Mais informações do curso
+
+**Faça um CTA para o curso do projeto**
