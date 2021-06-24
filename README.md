@@ -14,10 +14,15 @@ The App translates some selected messages to any language you create, using Pers
 
 **Take a closer look at what you will use**:
 
-- `Funcionalidade 1`: descrição da funcionalidade 1
-- `Funcionalidade 2`: descrição da funcionalidade 2
-  - `Funcionalidade 2a`: descrição da funcionalidade 2a relacionada à funcionalidade 2
-- `Funcionalidade 3`: descrição da funcionalidade 3
+- `Internacionalization`: Multiple Options for Languages
+- `Assert`: Warnings to help you find difficult errors
+- `Eager`: Technique that get all the data at once
+- `Lazy`: Technique that only get the data when needed
+- `Creator`: Using typedef to create a Widget that helps build or rebuild the View.
+- `Key`: Using keys to look for the messages with different languages.
+- `Gist`: Private Server 
+- `LocalStorage`: Package that alows persistence of small data.
+- `Dynamic/Static`: Changing keys to dynamic information!
 
 ## 📁 Initial Project
 
